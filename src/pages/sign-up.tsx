@@ -150,7 +150,8 @@ const SignInPage: React.FC = () => {
                     onChange={handleChange}
                     placeholder="Enter your password"
                     required
-                    className="w-full border border-gray-300 rounded-lg px-4 py-3 font-body text-navy-light focus:outline-none focus:border-orange pr-12"
+                    className="w-full border border-gray-300 rounded-lg px-4 py-3 font-body text-navy-light focus:outline-none focus:border-orange pr-12 [&::-ms-reveal]:hidden [&::-ms-clear]:hidden"
+                    style={{ WebkitTextSecurity: showPassword ? 'none' : 'disc' } as React.CSSProperties}
                   />
                   <button
                     type="button"
@@ -159,9 +160,9 @@ const SignInPage: React.FC = () => {
                     tabIndex={-1}
                   >
                     {showPassword ? (
-                      <span className="fa fa-eye-slash"></span>
-                    ) : (
                       <span className="fa fa-eye"></span>
+                    ) : (
+                      <span className="fa fa-eye-slash"></span>
                     )}
                   </button>
                 </div>
