@@ -127,8 +127,8 @@ const FAQSection: React.FC = () => {
         <div className="text-center mt-12">
           <p className="font-body text-navy-light mb-4">Still have questions?</p>
           <a
-            href="#contact"
-            className="inline-block py-3 px-8 text-base font-bold text-white bg-orange border-2 border-orange rounded-sm hover:bg-orange-dark hover:border-orange-dark transition-all duration-300 shadow-lg hover:shadow-xl"
+            href="/contact"
+            className="inline-block py-3 px-8 text-base font-bold text-white bg-orange border-2 border-orange rounded-lg hover:bg-orange-dark hover:border-orange-dark transition-all duration-300 shadow-lg hover:shadow-xl"
           >
             Contact Us
           </a>

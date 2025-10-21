@@ -26,40 +26,40 @@ const ServicesSection: React.FC = () => {
     {
       id: 1,
       image: "/img/research.png",
-      title: "Study Abroad Admissions",
+      title: "University Selection & Admissions",
       description:
-        "Personalized guidance for university and college applications worldwide. We help you choose the right country, program, and institution, and support you through every step of the admissions process.",
+        "Expert guidance in choosing the right university and program abroad. We help you navigate applications, documentation, and admissions requirements for top institutions worldwide.",
     },
     {
       id: 2,
       image: "/img/scholarship.png",
-      title: "Scholarship & Funding Support",
+      title: "Visa Assistance & Documentation",
       description:
-        "Expert assistance with scholarship searches, applications, and essays. We connect you to funding opportunities and help you secure financial support for your studies abroad.",
+        "Complete support with visa applications, documentation preparation, and interview coaching. We ensure your paperwork is accurate and submitted on time for a smooth visa process.",
     },
     {
       id: 3,
       image: "/img/funding.png",
-      title: "Research & Academic Support",
+      title: "Test Preparation (IELTS, TOEFL, GRE, GMAT)",
       description:
-        "Comprehensive research help, from project proposals to data collection and tutorials. Our team ensures your academic work meets the highest standards with zero plagiarism.",
+        "Comprehensive coaching for standardized tests required for study abroad. Our expert trainers help you achieve the scores needed for your dream university admission.",
     },
     {
       id: 4,
       image: "/img/coaching.png",
-      title: "Career Coaching & Mentorship",
+      title: "Scholarship & Financial Aid",
       description:
-        "One-on-one coaching to help you set and achieve your career goals. Get actionable insights, industry advice, and ongoing support from experienced mentors.",
+        "Discover funding opportunities and maximize your chances of securing scholarships. We guide you through applications, essays, and interviews to reduce your study abroad costs.",
     },
   ];
 
   return (
     <section className="py-20 px-[5%] bg-white" id="services">
       <h1 className="font-heading text-4xl lg:text-5xl font-bold text-center text-navy mb-4">
-        Services
+        Our Services
       </h1>
       <h4 className="font-body text-base lg:text-lg text-center text-navy-light max-w-4xl mx-auto mb-16 leading-relaxed">
-        We empower students to achieve their study abroad dreams with expert admissions guidance, scholarship support, academic research help, and career coaching—tailored to your unique goals.
+        Bridge Bound Academics provides end-to-end support for your study abroad journey—from university selection and test preparation to visa assistance and scholarship guidance.
       </h4>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">

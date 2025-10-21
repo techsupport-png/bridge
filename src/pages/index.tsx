@@ -6,7 +6,6 @@ import ServicesSection from "@/components/ServicesSection";
 import AboutSection from "@/components/AboutSection";
 import BlogSection from "@/components/BlogSection";
 import FAQSection from "@/components/FAQSection";
-import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 
@@ -28,7 +27,6 @@ const Home: React.FC = () => {
         <AboutSection />
         <BlogSection />
         <FAQSection />
-        <ContactSection />
         <Footer />
         <BackToTop />
       </div>

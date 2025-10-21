@@ -47,7 +47,7 @@ const AboutSection: React.FC = () => {
           </p>
           <button 
             onClick={() => setIsModalOpen(true)}
-            className="inline-block py-3 px-8 text-base font-bold text-white bg-orange border-2 border-orange rounded-sm hover:bg-orange-dark hover:border-orange-dark transition-all duration-300 shadow-lg hover:shadow-xl"
+            className="inline-block py-3 px-8 text-base font-bold text-white bg-orange border-2 border-orange rounded-lg hover:bg-orange-dark hover:border-orange-dark transition-all duration-300 shadow-lg hover:shadow-xl"
           >
             Get Started Today
           </button>

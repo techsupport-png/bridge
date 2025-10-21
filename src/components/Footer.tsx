@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-7xl mx-auto">
           {/* Logo and Description */}
           <div>
-            <Link href="#home" className="flex items-center mb-6">
+            <Link href="/" className="flex items-center mb-6">
               <Image 
                 src="/img/Original_Logo.svg" 
                 alt="Bridge Bound Academy Logo" 
@@ -71,8 +71,8 @@ const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link href="#contact" className="font-body text-gray-300 hover:text-orange transition-colors text-sm">
-                  What We Do
+                <Link href="/contact" className="font-body text-gray-300 hover:text-orange transition-colors text-sm">
+                  Contact Us
                 </Link>
               </li>
             </ul>
