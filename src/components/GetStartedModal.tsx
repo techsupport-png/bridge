@@ -256,8 +256,8 @@ const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose }) =>
                 className="w-full px-4 py-3 font-body border border-gray-300 rounded-lg focus:outline-none focus:border-orange transition-colors appearance-none bg-white"
               >
                 <option value="">Select</option>
-                <option value="Bachelor's">Bachelor's</option>
-                <option value="Master's">Master's</option>
+                <option value="Bachelor's">Bachelor&apos;s</option>
+                <option value="Master's">Master&apos;s</option>
                 <option value="PhD">PhD</option>
                 <option value="Diploma">Diploma</option>
               </select>

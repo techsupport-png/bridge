@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -47,7 +48,7 @@ const SignInPage: React.FC = () => {
           {/* Left Side: Illustration & Info */}
           <div className="hidden lg:flex flex-col justify-center items-center bg-orange/20 px-10 py-12 w-2/5">
             <div className="mb-8">
-              <img src="/img/student.png" alt="Create your account" className="w-30 h-56 object-cover rounded-xl" />
+              <Image src="/img/student.png" alt="Create your account" width={120} height={224} className="w-30 h-56 object-cover rounded-xl" />
             </div>
             <h1 className="font-heading text-3xl font-bold text-orange mb-4">Create your Bridge Bound Academics account</h1>
             <p className="font-body text-navy-light mb-6 text-base">
@@ -68,7 +69,7 @@ const SignInPage: React.FC = () => {
               </li>
             </ul>
             <p className="font-body text-xs text-navy-light">
-              <span className="font-bold">Note:</span> Creating an account is free and won't result in unsolicited calls. You'll only be contacted after submitting an enquiry form.
+              <span className="font-bold">Note:</span> Creating an account is free and won&apos;t result in unsolicited calls. You&apos;ll only be contacted after submitting an enquiry form.
             </p>
           </div>
           {/* Right Side: Form */}
@@ -207,7 +208,7 @@ const SignInPage: React.FC = () => {
             </form>
             <div className="mt-6 text-center font-body text-navy-light text-base">
               Already have an account?{' '}
-              <Link href="/sign-in" className="text-blue-600 underline font-bold">Sign in</Link>
+              <Link href="/sign-in" className="text-orange hover:text-orange-dark font-bold">Sign in</Link>
             </div>
           </div>
         </div>

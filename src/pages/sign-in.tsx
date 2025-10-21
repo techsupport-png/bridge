@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -40,11 +41,13 @@ const SignInPage: React.FC = () => {
             <div className="absolute bottom-0 right-0 w-48 h-48 bg-green-500 rounded-full opacity-40 translate-x-16 translate-y-16"></div>
             <div className="absolute bottom-20 left-10 w-56 h-56 bg-blue-600 rounded-full opacity-50"></div>
             <div className="relative z-10">
-              <img 
+              <Image 
                 src="/img/signin-graphic.png" 
                 alt="Welcome back" 
+                width={288}
+                height={288}
                 className="w-72 h-72 object-cover rounded-xl"
-                onError={(e) => {
+                onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
                   e.currentTarget.style.display = 'none';
                 }}
               />
@@ -134,7 +137,7 @@ const SignInPage: React.FC = () => {
 
               {/* Sign Up Link */}
               <div className="mt-8 text-center font-body text-navy-light">
-                Don't have an account?{' '}
+                Don&apos;t have an account?{' '}
                 <Link href="/sign-up" className="text-orange hover:text-orange-dark font-bold">
                   Sign up
                 </Link>

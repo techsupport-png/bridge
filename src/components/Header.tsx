@@ -1,19 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const [isScrolled, setIsScrolled] = useState<boolean>(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -170,8 +160,8 @@ const Header: React.FC = () => {
                   By Degree Level <span className="fa fa-caret-right ml-2"></span>
                 </button>
                 <div className="hidden group-hover/degree:block absolute left-full top-0 bg-white text-navy shadow-lg rounded-b z-50 min-w-[180px] text-left">
-                  <Link href="/courses/bachelors" className="block px-6 py-3 hover:bg-orange hover:text-white transition-colors">Bachelor's</Link>
-                  <Link href="/courses/masters" className="block px-6 py-3 hover:bg-orange hover:text-white transition-colors">Master's</Link>
+                  <Link href="/courses/bachelors" className="block px-6 py-3 hover:bg-orange hover:text-white transition-colors">Bachelor&apos;s</Link>
+                  <Link href="/courses/masters" className="block px-6 py-3 hover:bg-orange hover:text-white transition-colors">Master&apos;s</Link>
                   <Link href="/courses/phd" className="block px-6 py-3 hover:bg-orange hover:text-white transition-colors">PhD</Link>
                   <Link href="/courses/diploma-certificate" className="block px-6 py-3 hover:bg-orange hover:text-white transition-colors">Diploma/Certificate</Link>
                   <Link href="/courses/foundation" className="block px-6 py-3 hover:bg-orange hover:text-white transition-colors">Foundation Programs</Link>

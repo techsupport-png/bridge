@@ -73,7 +73,7 @@ const ThankYouPage: React.FC = () => {
               More info for your support:
             </h2>
             <p className="font-body text-navy-light leading-relaxed">
-              Search for locate an <span className="font-bold text-orange">Bridge Bound Academics office</span> near you. Download <span className="font-bold text-orange">Bridge Bound Academics Live</span> mobile app: Bridge Bound Academics Live is the express route to study abroad in your dream course. Bridge Bound Academics Live is a free app that combines data and human expertise to give you the best chance of getting into your ideal course. Our support does not end with your acceptance letter. We will be there to assist you even after you reach your new country. Come, see us - It's free!
+              Search for locate an <span className="font-bold text-orange">Bridge Bound Academics office</span> near you. Download <span className="font-bold text-orange">Bridge Bound Academics Live</span> mobile app: Bridge Bound Academics Live is the express route to study abroad in your dream course. Bridge Bound Academics Live is a free app that combines data and human expertise to give you the best chance of getting into your ideal course. Our support does not end with your acceptance letter. We will be there to assist you even after you reach your new country. Come, see us - It&apos;s free!
             </p>
           </div>
 

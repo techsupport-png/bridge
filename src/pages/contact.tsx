@@ -6,13 +6,6 @@ import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
-interface Office {
-  id: number;
-  location: string;
-  address: string;
-  phone: string;
-}
-
 const ContactPage: React.FC = () => {
   const router = useRouter();
   
@@ -106,7 +99,7 @@ const ContactPage: React.FC = () => {
               Contact Us Via Our Offices or Send A Message
             </h2>
             <p className="font-body text-center text-navy-light max-w-3xl mx-auto mb-16 leading-relaxed">
-              With offices in Nigeria and the UK, Bridge Bound Academics is committed to helping students worldwide achieve their dreams—reach out today and let's build your future together.
+              With offices in Nigeria and the UK, Bridge Bound Academics is committed to helping students worldwide achieve their dreams—reach out today and let&apos;s build your future together.
             </p>
 
             <div className="flex justify-center">
@@ -270,8 +263,8 @@ const ContactPage: React.FC = () => {
                         className="w-full px-4 py-3 font-body border border-gray-300 rounded-lg focus:outline-none focus:border-orange transition-colors appearance-none bg-white"
                       >
                         <option value="">Select</option>
-                        <option value="Bachelor's">Bachelor's</option>
-                        <option value="Master's">Master's</option>
+                        <option value="Bachelor's">Bachelor&apos;s</option>
+                        <option value="Master's">Master&apos;s</option>
                         <option value="PhD">PhD</option>
                         <option value="Diploma">Diploma</option>
                       </select>
