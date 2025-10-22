@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -251,12 +252,17 @@ const Header: React.FC = () => {
         </div>
 
         <div className="hidden lg:block">
-          <Link
-            href="/sign-in"
-            className="py-3 px-6 text-base font-bold text-white bg-orange border-2 border-orange rounded-full hover:bg-orange-dark hover:border-orange-dark transition-all duration-300 shadow-md hover:shadow-lg"
-          >
-            Sign in
-          </Link>
+          <SignedOut>
+            <Link
+              href="/sign-in"
+              className="py-3 px-6 text-base font-bold text-white bg-orange border-2 border-orange rounded-full hover:bg-orange-dark hover:border-orange-dark transition-all duration-300 shadow-md hover:shadow-lg"
+            >
+              Sign in
+            </Link>
+          </SignedOut>
+          <SignedIn>
+            <UserButton appearance={{ elements: { avatarBox: "w-9 h-9" } }} />
+          </SignedIn>
         </div>
 
         <div
