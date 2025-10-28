@@ -2,9 +2,28 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { ChevronDown } from "lucide-react";
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [openDropdowns, setOpenDropdowns] = useState<{ [key: string]: boolean }>({
+    studyAbroad: false,
+    studentServices: false,
+    testPrep: false,
+    careerCounseling: false,
+    visaGuidance: false,
+    accommodationSupport: false,
+    findCourse: false,
+    destination: false,
+  });
+
+  // Desktop hover state for reliable dropdowns on large screens
+  const [hoveredDropdowns, setHoveredDropdowns] = useState<{ [key: string]: boolean }>({
+    studyAbroad: false,
+    studentServices: false,
+    findCourse: false,
+    destination: false,
+  });
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -12,6 +31,35 @@ const Header: React.FC = () => {
 
   const closeMenu = () => {
     setIsMenuOpen(false);
+    setOpenDropdowns({
+      studyAbroad: false,
+      studentServices: false,
+      testPrep: false,
+      careerCounseling: false,
+      visaGuidance: false,
+      accommodationSupport: false,
+      findCourse: false,
+      destination: false,
+    });
+    setHoveredDropdowns({
+      studyAbroad: false,
+      studentServices: false,
+      findCourse: false,
+      destination: false,
+    });
+  };
+
+  const toggleDropdown = (key: string) => {
+    setOpenDropdowns((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
+
+  const handleHover = (key: string, open: boolean) => {
+    if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
+      setHoveredDropdowns((prev) => ({ ...prev, [key]: open }));
+    }
   };
 
   return (
@@ -30,16 +78,42 @@ const Header: React.FC = () => {
         </div>
 
         <div
-          className={`$
+          className={`${
             isMenuOpen ? "right-0" : "-right-full"
-          } fixed lg:relative lg:right-0 flex flex-col lg:flex-row top-[60px] lg:top-0 h-[420px] lg:h-auto w-full lg:w-auto transition-all duration-500 bg-navy lg:bg-transparent text-white lg:text-navy shadow-md lg:shadow-none text-center z-40`}
+          } fixed lg:relative lg:right-0 flex flex-col lg:flex-row top-[76px] lg:top-0 h-[calc(100vh-76px)] lg:h-auto w-full lg:w-auto transition-all duration-500 bg-cream lg:bg-transparent overflow-y-auto lg:overflow-visible shadow-md lg:shadow-none z-40`}
         >
           {/* Study Abroad Dropdown */}
-          <div className="relative group">
-            <button className="py-5 lg:py-0 px-4 font-body text-sm lg:text-base font-bold hover:text-orange transition-colors mt-6 lg:mt-0 flex items-center gap-1 focus:outline-none">
-              Study Abroad <span className="fa fa-caret-down"></span>
+          <div
+            className="relative group border-b lg:border-0 border-navy/10"
+            onMouseEnter={() => handleHover("studyAbroad", true)}
+            onMouseLeave={() => handleHover("studyAbroad", false)}
+          >
+            <button 
+              onClick={(e) => {
+                if (window.innerWidth < 1024) {
+                  toggleDropdown("studyAbroad");
+                }
+              }}
+              className="w-full lg:w-auto py-4 lg:py-0 px-6 lg:px-4 font-body text-sm lg:text-base font-bold text-navy hover:text-orange transition-colors lg:mt-0 flex items-center justify-between lg:justify-start gap-2 focus:outline-none"
+            >
+              <span>Study Abroad</span>
+              <ChevronDown className={`w-4 h-4 lg:hidden transition-transform ${openDropdowns.studyAbroad ? "rotate-180" : ""}`} />
+              <ChevronDown className="hidden lg:block w-4 h-4" />
             </button>
-            <div className="hidden group-hover:block absolute left-0 top-full bg-white text-navy shadow-lg rounded-b z-50 min-w-[180px] lg:text-left text-center">
+            
+            {/* Mobile Accordion */}
+            <div className={`lg:hidden bg-white/50 overflow-hidden transition-all duration-300 ${openDropdowns.studyAbroad ? "max-h-[500px]" : "max-h-0"}`}>
+              <Link href="/study-abroad/undergraduate" onClick={closeMenu} className="block px-8 py-3 text-navy hover:bg-orange/10 hover:text-orange transition-colors">Undergraduate</Link>
+              <Link href="/study-abroad/postgraduate" onClick={closeMenu} className="block px-8 py-3 text-navy hover:bg-orange/10 hover:text-orange transition-colors">Postgraduate</Link>
+              <Link href="/study-abroad/short-courses" onClick={closeMenu} className="block px-8 py-3 text-navy hover:bg-orange/10 hover:text-orange transition-colors">Short Courses</Link>
+            </div>
+            
+            {/* Desktop Dropdown */}
+            <div
+              className={`hidden absolute left-0 top-full bg-white text-navy shadow-lg rounded-b z-50 min-w-[180px] ${
+                hoveredDropdowns.studyAbroad ? "lg:block" : "lg:hidden"
+              }`}
+            >
               <Link href="/study-abroad/undergraduate" className="block px-6 py-3 hover:bg-orange hover:text-white transition-colors">Undergraduate</Link>
               <Link href="/study-abroad/postgraduate" className="block px-6 py-3 hover:bg-orange hover:text-white transition-colors">Postgraduate</Link>
               <Link href="/study-abroad/short-courses" className="block px-6 py-3 hover:bg-orange hover:text-white transition-colors">Short Courses</Link>
@@ -47,11 +121,97 @@ const Header: React.FC = () => {
           </div>
 
           {/* Student Services Dropdown (Multi-level, Nested) */}
-          <div className="relative group">
-            <button className="py-5 lg:py-0 px-4 font-body text-sm lg:text-base font-bold hover:text-orange transition-colors mb-5 lg:mb-0 flex items-center gap-1 focus:outline-none">
-              Student Services <span className="fa fa-caret-down"></span>
+          <div
+            className="relative group border-b lg:border-0 border-navy/10"
+            onMouseEnter={() => handleHover("studentServices", true)}
+            onMouseLeave={() => handleHover("studentServices", false)}
+          >
+            <button 
+              onClick={(e) => {
+                if (window.innerWidth < 1024) {
+                  toggleDropdown("studentServices");
+                }
+              }}
+              className="w-full lg:w-auto py-4 lg:py-0 px-6 lg:px-4 font-body text-sm lg:text-base font-bold text-navy hover:text-orange transition-colors flex items-center justify-between lg:justify-start gap-2 focus:outline-none"
+            >
+              <span>Student Services</span>
+              <ChevronDown className={`w-4 h-4 lg:hidden transition-transform ${openDropdowns.studentServices ? "rotate-180" : ""}`} />
+              <ChevronDown className="hidden lg:block w-4 h-4" />
             </button>
-            <div className="hidden group-hover:block absolute left-0 top-full bg-white text-navy shadow-lg rounded-b z-50 min-w-[240px] lg:text-left text-center">
+            
+            {/* Mobile Accordion */}
+            <div className={`lg:hidden bg-white/50 overflow-hidden transition-all duration-300 ${openDropdowns.studentServices ? "max-h-[1000px]" : "max-h-0"}`}>
+              {/* Test Prep */}
+              <div className="border-b border-navy/5">
+                <button 
+                  onClick={() => toggleDropdown("testPrep")}
+                  className="w-full px-8 py-3 text-navy hover:bg-orange/10 hover:text-orange transition-colors flex items-center justify-between font-semibold text-left"
+                >
+                  <span>Test Prep</span>
+                  <ChevronDown className={`w-3 h-3 transition-transform ${openDropdowns.testPrep ? "rotate-180" : ""}`} />
+                </button>
+                <div className={`bg-white/50 overflow-hidden transition-all duration-300 ${openDropdowns.testPrep ? "max-h-[300px]" : "max-h-0"}`}>
+                  <Link href="/services/ielts" onClick={closeMenu} className="block px-12 py-2 text-sm text-navy hover:bg-orange/10 hover:text-orange transition-colors">IELTS Prep</Link>
+                  <Link href="/services/toefl" onClick={closeMenu} className="block px-12 py-2 text-sm text-navy hover:bg-orange/10 hover:text-orange transition-colors">TOEFL Prep</Link>
+                  <Link href="/services/gre" onClick={closeMenu} className="block px-12 py-2 text-sm text-navy hover:bg-orange/10 hover:text-orange transition-colors">GRE Prep</Link>
+                  <Link href="/services/gmat" onClick={closeMenu} className="block px-12 py-2 text-sm text-navy hover:bg-orange/10 hover:text-orange transition-colors">GMAT Prep</Link>
+                </div>
+              </div>
+
+              {/* Career Counseling */}
+              <div className="border-b border-navy/5">
+                <button 
+                  onClick={() => toggleDropdown("careerCounseling")}
+                  className="w-full px-8 py-3 text-navy hover:bg-orange/10 hover:text-orange transition-colors flex items-center justify-between font-semibold text-left"
+                >
+                  <span>Career Counseling</span>
+                  <ChevronDown className={`w-3 h-3 transition-transform ${openDropdowns.careerCounseling ? "rotate-180" : ""}`} />
+                </button>
+                <div className={`bg-white/50 overflow-hidden transition-all duration-300 ${openDropdowns.careerCounseling ? "max-h-[200px]" : "max-h-0"}`}>
+                  <Link href="/services/profile-assessment" onClick={closeMenu} className="block px-12 py-2 text-sm text-navy hover:bg-orange/10 hover:text-orange transition-colors">Profile Assessment</Link>
+                  <Link href="/services/course-selection" onClick={closeMenu} className="block px-12 py-2 text-sm text-navy hover:bg-orange/10 hover:text-orange transition-colors">Course Selection</Link>
+                  <Link href="/services/university-shortlisting" onClick={closeMenu} className="block px-12 py-2 text-sm text-navy hover:bg-orange/10 hover:text-orange transition-colors">University Shortlisting</Link>
+                </div>
+              </div>
+
+              {/* Visa Guidance */}
+              <div className="border-b border-navy/5">
+                <button 
+                  onClick={() => toggleDropdown("visaGuidance")}
+                  className="w-full px-8 py-3 text-navy hover:bg-orange/10 hover:text-orange transition-colors flex items-center justify-between font-semibold text-left"
+                >
+                  <span>Visa Guidance</span>
+                  <ChevronDown className={`w-3 h-3 transition-transform ${openDropdowns.visaGuidance ? "rotate-180" : ""}`} />
+                </button>
+                <div className={`bg-white/50 overflow-hidden transition-all duration-300 ${openDropdowns.visaGuidance ? "max-h-[200px]" : "max-h-0"}`}>
+                  <Link href="/services/student-visa" onClick={closeMenu} className="block px-12 py-2 text-sm text-navy hover:bg-orange/10 hover:text-orange transition-colors">Student Visa</Link>
+                  <Link href="/services/visa-interview-prep" onClick={closeMenu} className="block px-12 py-2 text-sm text-navy hover:bg-orange/10 hover:text-orange transition-colors">Visa Interview Prep</Link>
+                  <Link href="/services/documentation" onClick={closeMenu} className="block px-12 py-2 text-sm text-navy hover:bg-orange/10 hover:text-orange transition-colors">Documentation Support</Link>
+                </div>
+              </div>
+
+              {/* Accommodation Support */}
+              <div>
+                <button 
+                  onClick={() => toggleDropdown("accommodationSupport")}
+                  className="w-full px-8 py-3 text-navy hover:bg-orange/10 hover:text-orange transition-colors flex items-center justify-between font-semibold text-left"
+                >
+                  <span>Accommodation</span>
+                  <ChevronDown className={`w-3 h-3 transition-transform ${openDropdowns.accommodationSupport ? "rotate-180" : ""}`} />
+                </button>
+                <div className={`bg-white/50 overflow-hidden transition-all duration-300 ${openDropdowns.accommodationSupport ? "max-h-[150px]" : "max-h-0"}`}>
+                  <Link href="/services/on-campus-housing" onClick={closeMenu} className="block px-12 py-2 text-sm text-navy hover:bg-orange/10 hover:text-orange transition-colors">On-Campus Housing</Link>
+                  <Link href="/services/off-campus-housing" onClick={closeMenu} className="block px-12 py-2 text-sm text-navy hover:bg-orange/10 hover:text-orange transition-colors">Off-Campus Housing</Link>
+                </div>
+              </div>
+            </div>
+            
+            {/* Desktop Dropdown - keeping existing structure */}
+            <div
+              className={`hidden absolute left-0 top-full bg-white text-navy shadow-lg rounded-b z-50 min-w-[240px] ${
+                hoveredDropdowns.studentServices ? "lg:block" : "lg:hidden"
+              }`}
+            >
               {/* Test Preparations with submenu */}
               <div className="relative group/testprep">
                 <button className="w-full flex items-center justify-between px-6 py-3 hover:bg-orange hover:text-white transition-colors font-body text-left">
@@ -128,30 +288,59 @@ const Header: React.FC = () => {
             </div>
           </div>
 
-          {/* About */}
-          <Link
-            href="#about"
-            onClick={closeMenu}
-            className="py-5 lg:py-0 px-4 font-body text-sm lg:text-base font-bold hover:text-orange transition-colors mb-5 lg:mb-0"
-          >
-            About
-          </Link>
-
           {/* IELTS */}
           <Link
             href="/ielts"
             onClick={closeMenu}
-            className="py-5 lg:py-0 px-4 font-body text-sm lg:text-base font-bold hover:text-orange transition-colors mb-5 lg:mb-0"
+            className="py-4 lg:py-0 px-6 lg:px-4 font-body text-sm lg:text-base font-bold text-navy hover:text-orange transition-colors border-b lg:border-0 border-navy/10 block"
           >
             IELTS
           </Link>
 
+          {/* Colleges */}
+          <Link
+            href="/colleges"
+            onClick={closeMenu}
+            className="py-4 lg:py-0 px-6 lg:px-4 font-body text-sm lg:text-base font-bold text-navy hover:text-orange transition-colors border-b lg:border-0 border-navy/10 block"
+          >
+            Colleges
+          </Link>
+
           {/* Find a Course Dropdown (Multi-level, Nested) */}
-          <div className="relative group">
-            <button className="py-5 lg:py-0 px-4 font-body text-sm lg:text-base font-bold hover:text-orange transition-colors mb-5 lg:mb-0 flex items-center gap-1 focus:outline-none">
-              Find a Course <span className="fa fa-caret-down"></span>
+          <div
+            className="relative group border-b lg:border-0 border-navy/10"
+            onMouseEnter={() => handleHover("findCourse", true)}
+            onMouseLeave={() => handleHover("findCourse", false)}
+          >
+            <button 
+              onClick={(e) => {
+                if (window.innerWidth < 1024) {
+                  toggleDropdown("findCourse");
+                }
+              }}
+              className="w-full lg:w-auto py-4 lg:py-0 px-6 lg:px-4 font-body text-sm lg:text-base font-bold text-navy hover:text-orange transition-colors flex items-center justify-between lg:justify-start gap-2 focus:outline-none"
+            >
+              <span>Find a Course</span>
+              <ChevronDown className={`w-4 h-4 lg:hidden transition-transform ${openDropdowns.findCourse ? "rotate-180" : ""}`} />
+              <ChevronDown className="hidden lg:block w-4 h-4" />
             </button>
-            <div className="hidden group-hover:block absolute left-0 top-full bg-white text-navy shadow-lg rounded-b z-50 min-w-[240px] lg:text-left text-center">
+            
+            {/* Mobile Accordion */}
+            <div className={`lg:hidden bg-white/50 overflow-hidden transition-all duration-300 ${openDropdowns.findCourse ? "max-h-[500px]" : "max-h-0"}`}>
+              <Link href="/courses/subjects" onClick={closeMenu} className="block px-8 py-3 text-navy hover:bg-orange/10 hover:text-orange transition-colors">By Subject</Link>
+              <Link href="/courses/degrees" onClick={closeMenu} className="block px-8 py-3 text-navy hover:bg-orange/10 hover:text-orange transition-colors">By Degree Level</Link>
+              <Link href="/courses/countries" onClick={closeMenu} className="block px-8 py-3 text-navy hover:bg-orange/10 hover:text-orange transition-colors">By Country</Link>
+              <Link href="/courses/duration" onClick={closeMenu} className="block px-8 py-3 text-navy hover:bg-orange/10 hover:text-orange transition-colors">By Duration</Link>
+              <Link href="/courses/language" onClick={closeMenu} className="block px-8 py-3 text-navy hover:bg-orange/10 hover:text-orange transition-colors">By Language</Link>
+              <Link href="/courses/budget" onClick={closeMenu} className="block px-8 py-3 text-navy hover:bg-orange/10 hover:text-orange transition-colors">By Budget</Link>
+            </div>
+            
+            {/* Desktop Dropdown */}
+            <div
+              className={`hidden absolute left-0 top-full bg-white text-navy shadow-lg rounded-b z-50 min-w-[240px] ${
+                hoveredDropdowns.findCourse ? "lg:block" : "lg:hidden"
+              }`}
+            >
               {/* By Subject */}
               <Link href="/courses/subjects" className="block px-6 py-3 hover:bg-orange hover:text-white transition-colors">By Subject</Link>
 
@@ -224,11 +413,43 @@ const Header: React.FC = () => {
           </div>
 
           {/* Destination Dropdown */}
-          <div className="relative group">
-            <button className="py-5 lg:py-0 px-4 font-body text-sm lg:text-base font-bold hover:text-orange transition-colors mb-5 lg:mb-0 flex items-center gap-1 focus:outline-none">
-              Destination <span className="fa fa-caret-down"></span>
+          <div
+            className="relative group border-b lg:border-0 border-navy/10"
+            onMouseEnter={() => handleHover("destination", true)}
+            onMouseLeave={() => handleHover("destination", false)}
+          >
+            <button 
+              onClick={(e) => {
+                if (window.innerWidth < 1024) {
+                  toggleDropdown("destination");
+                }
+              }}
+              className="w-full lg:w-auto py-4 lg:py-0 px-6 lg:px-4 font-body text-sm lg:text-base font-bold text-navy hover:text-orange transition-colors flex items-center justify-between lg:justify-start gap-2 focus:outline-none"
+            >
+              <span>Destination</span>
+              <ChevronDown className={`w-4 h-4 lg:hidden transition-transform ${openDropdowns.destination ? "rotate-180" : ""}`} />
+              <ChevronDown className="hidden lg:block w-4 h-4" />
             </button>
-            <div className="hidden group-hover:block absolute left-0 top-full bg-white text-navy shadow-lg rounded-b z-50 min-w-[200px] lg:text-left text-center">
+            
+            {/* Mobile Accordion */}
+            <div className={`lg:hidden bg-white/50 overflow-hidden transition-all duration-300 ${openDropdowns.destination ? "max-h-[600px]" : "max-h-0"}`}>
+              <Link href="/destinations/germany" onClick={closeMenu} className="block px-8 py-3 text-navy font-bold bg-orange/10 hover:bg-orange/20 hover:text-orange transition-colors">🇩🇪 Germany</Link>
+              <Link href="/destinations/usa" onClick={closeMenu} className="block px-8 py-3 text-navy hover:bg-orange/10 hover:text-orange transition-colors">🇺🇸 USA</Link>
+              <Link href="/destinations/uk" onClick={closeMenu} className="block px-8 py-3 text-navy hover:bg-orange/10 hover:text-orange transition-colors">🇬🇧 UK</Link>
+              <Link href="/destinations/canada" onClick={closeMenu} className="block px-8 py-3 text-navy hover:bg-orange/10 hover:text-orange transition-colors">🇨🇦 Canada</Link>
+              <Link href="/destinations/australia" onClick={closeMenu} className="block px-8 py-3 text-navy hover:bg-orange/10 hover:text-orange transition-colors">🇦🇺 Australia</Link>
+              <Link href="/destinations/ireland" onClick={closeMenu} className="block px-8 py-3 text-navy hover:bg-orange/10 hover:text-orange transition-colors">🇮🇪 Ireland</Link>
+              <Link href="/destinations/new-zealand" onClick={closeMenu} className="block px-8 py-3 text-navy hover:bg-orange/10 hover:text-orange transition-colors">🇳🇿 New Zealand</Link>
+              <Link href="/destinations/singapore" onClick={closeMenu} className="block px-8 py-3 text-navy hover:bg-orange/10 hover:text-orange transition-colors">🇸🇬 Singapore</Link>
+              <Link href="/colleges" onClick={closeMenu} className="block px-8 py-3 text-navy hover:bg-orange/10 hover:text-orange transition-colors">View All Destinations</Link>
+            </div>
+            
+            {/* Desktop Dropdown */}
+            <div
+              className={`hidden absolute left-0 top-full bg-white text-navy shadow-lg rounded-b z-50 min-w-[200px] ${
+                hoveredDropdowns.destination ? "lg:block" : "lg:hidden"
+              }`}
+            >
               <Link href="/destinations/germany" className="block px-6 py-3 font-bold text-orange bg-orange/10 hover:bg-orange hover:text-white transition-colors">🇩🇪 Germany</Link>
               <Link href="/destinations/usa" className="block px-6 py-3 hover:bg-orange hover:text-white transition-colors">🇺🇸 USA</Link>
               <Link href="/destinations/uk" className="block px-6 py-3 hover:bg-orange hover:text-white transition-colors">🇬🇧 UK</Link>
@@ -237,7 +458,7 @@ const Header: React.FC = () => {
               <Link href="/destinations/ireland" className="block px-6 py-3 hover:bg-orange hover:text-white transition-colors">🇮🇪 Ireland</Link>
               <Link href="/destinations/new-zealand" className="block px-6 py-3 hover:bg-orange hover:text-white transition-colors">🇳🇿 New Zealand</Link>
               <Link href="/destinations/singapore" className="block px-6 py-3 hover:bg-orange hover:text-white transition-colors">🇸🇬 Singapore</Link>
-              <Link href="/destinations/all" className="block px-6 py-3 hover:bg-orange hover:text-white transition-colors">View All Destinations</Link>
+              <Link href="/colleges" className="block px-6 py-3 hover:bg-orange hover:text-white transition-colors">View All Destinations</Link>
             </div>
           </div>
 
@@ -245,7 +466,7 @@ const Header: React.FC = () => {
           <Link
             href="/contact"
             onClick={closeMenu}
-            className="lg:hidden py-5 px-4 font-body text-sm font-bold hover:text-orange transition-colors mb-5"
+            className="lg:hidden py-4 px-6 font-body text-sm font-bold text-navy hover:text-orange transition-colors block"
           >
             Contact
           </Link>
